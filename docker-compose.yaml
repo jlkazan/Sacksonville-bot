@@ -1,0 +1,5 @@
+version: "3.9"
+services:
+  bot-lambda:
+    build: .
+    image: sacksonville_bot_lambda
