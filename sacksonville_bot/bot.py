@@ -26,7 +26,8 @@ def run_bot(event, context):
         return {"result": "No new plays"}
 
     # Filter sacks by the Jaguars (not when they have possession)
-    sacks = pbp[(pbp['play_type'] == "Sack") & (pbp['posteam'] != "JAX")]
+    # Updated to count sack fumbles (play type is not sack in this case)
+    sacks = pbp[((pbp['play_type'] == "Sack") | ((pbp['play_description'].str.contains("sack")) & (pbp['play_type'] != "Penalty"))) & (pbp['posteam'] != "JAX")]
     if len(sacks) == 0:
         return {"result": "No new sacks"}
 
